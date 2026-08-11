@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { IconArrow, IconCheck } from "./icons";
+import { handleCheckoutClick } from "@/lib/pixel";
+
 
 const QUESTIONS = [
   "Vocês já discutiram de madrugada por causa de quem ia levantar?",
@@ -73,7 +75,9 @@ export function Quiz({ checkoutUrl }: { checkoutUrl: string }) {
               </p>
               <a
                 href={checkoutUrl}
+                onClick={(e) => handleCheckoutClick(e, checkoutUrl)}
                 className="mt-6 inline-flex items-center gap-2 rounded-xl bg-accent px-7 py-3.5 text-sm font-bold text-accent-foreground shadow-[var(--shadow-soft)] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-clay"
+
               >
                 Quero o combinado pronto <IconArrow />
               </a>
