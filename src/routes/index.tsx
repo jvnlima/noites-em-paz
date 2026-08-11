@@ -16,7 +16,7 @@ import {
   IconShield,
 } from "@/components/landing/icons";
 
-const CHECKOUT = "#checkout";
+const CHECKOUT = "https://pay.cakto.com.br/38wekh6_1034182";
 const COUPLES = "2.418";
 
 export const Route = createFileRoute("/")({
