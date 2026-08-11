@@ -15,6 +15,8 @@ import {
   IconSeal,
   IconShield,
 } from "@/components/landing/icons";
+import { handleCheckoutClick } from "@/lib/pixel";
+
 
 const CHECKOUT = "https://pay.cakto.com.br/38wekh6_1034182";
 const COUPLES = "2.418";
@@ -52,7 +54,9 @@ function Cta({
   return (
     <a
       href={CHECKOUT}
+      onClick={(e) => handleCheckoutClick(e, CHECKOUT)}
       className={`group inline-flex items-center justify-center gap-2.5 rounded-xl bg-accent px-8 py-4 text-base font-bold tracking-tight text-accent-foreground shadow-[var(--shadow-lift)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-clay focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${className}`}
+
     >
       {children}
       <IconArrow className="h-4 w-4 stroke-current transition-transform duration-200 group-hover:translate-x-1" />
