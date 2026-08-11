@@ -2,7 +2,7 @@
 // 1. copia dist/client (ou .output/public) para dist-static/
 // 2. garante index.html na raiz
 // 3. cria .htaccess com fallback de SPA + compressão + cache
-import { cp, mkdir, readdir, rm, writeFile, access } from "node:fs/promises";
+import { cp, mkdir, readdir, rm, writeFile, access, rename } from "node:fs/promises";
 import path from "node:path";
 
 const root = process.cwd();
