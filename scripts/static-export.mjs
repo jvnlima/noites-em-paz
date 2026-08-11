@@ -25,7 +25,7 @@ const candidates = [
 
 let source = null;
 for (const c of candidates) {
-  if (await exists(path.join(c, "index.html"))) {
+  if ((await exists(path.join(c, "index.html"))) || (await exists(path.join(c, "_shell.html")))) {
     source = c;
     break;
   }
@@ -33,7 +33,7 @@ for (const c of candidates) {
 
 if (!source) {
   console.error(
-    "[static-export] Nenhum index.html encontrado em dist/client, .output/public ou dist. Rode o build antes.",
+    "[static-export] Nenhum HTML encontrado em dist/client, .output/public ou dist. Rode o build antes.",
   );
   process.exit(1);
 }
@@ -41,6 +41,14 @@ if (!source) {
 await rm(out, { recursive: true, force: true });
 await mkdir(out, { recursive: true });
 await cp(source, out, { recursive: true });
+
+// O TanStack Start gera o shell como _shell.html; a hospedagem espera index.html
+if (!(await exists(path.join(out, "index.html")))) {
+  await rename(path.join(out, "_shell.html"), path.join(out, "index.html"));
+} else {
+  await rm(path.join(out, "_shell.html"), { force: true });
+}
+
 
 const htaccess = `# Hospedagem compartilhada (Apache) - site estático
 Options -MultiViews
