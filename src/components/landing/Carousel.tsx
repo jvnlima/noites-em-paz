@@ -43,7 +43,7 @@ export function Carousel({ slides }: { slides: Slide[] }) {
       </div>
 
       <div className="flex flex-col gap-4 px-6 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-        <p className="text-[15px] font-semibold text-foreground">{current.caption}</p>
+        <p className="text-[15px] font-semibold text-foreground">{current?.caption}</p>
         <div className="flex items-center gap-2">
           {slides.map((s, idx) => (
             <button
