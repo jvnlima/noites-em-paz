@@ -5,7 +5,7 @@ export type Slide = { src: string; alt: string; caption: string };
 export function Carousel({ slides }: { slides: Slide[] }) {
   const [i, setI] = useState(0);
   const go = (n: number) => setI((c) => (c + n + slides.length) % slides.length);
-  const current = slides[i];
+  const current = slides[i] ?? slides[0];
 
   return (
     <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-[var(--shadow-lift)]">
