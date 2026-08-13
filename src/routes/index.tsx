@@ -1,8 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import heroImg from "@/assets/hero-couple-night.jpg";
-import planImg from "@/assets/plan-note.jpg";
-import { Quiz } from "@/components/landing/Quiz";
+import mockGuia from "@/assets/mock-guia.jpg";
+import mockChecklist from "@/assets/mock-checklist.jpg";
+import mockPlanner from "@/assets/mock-planner.jpg";
+import mockSos from "@/assets/mock-sos.jpg";
+import mockCelular from "@/assets/mock-celular.jpg";
 import { Faq } from "@/components/landing/Faq";
+import { Timer } from "@/components/landing/Timer";
+import { Carousel } from "@/components/landing/Carousel";
 import {
   IconArrow,
   IconBed,
@@ -17,28 +22,25 @@ import {
 } from "@/components/landing/icons";
 import { handleCheckoutClick } from "@/lib/pixel";
 
-
 const CHECKOUT = "https://pay.cakto.com.br/38wekh6_1034182";
-const COUPLES = "2.418";
 
 export const Route = createFileRoute("/")({
   component: Landing,
   head: () => ({
     meta: [
-      { title: "Dividir a Noite Sem Brigar | Guia Prático para Pai e Mãe" },
+      { title: "Guia Prático para Pais | Dividir a Noite Sem Brigar" },
       {
         name: "description",
         content:
-          "O combinado justo que acaba com a briga das 3h da manhã. Guia em PDF + bônus para casais com recém-nascido, por R$ 18,97. Garantia de 7 dias.",
+          "Passo a passo em PDF para o casal combinar quem cuida de cada situação da madrugada. Entrega no e-mail na hora, R$ 18,97, garantia de 7 dias.",
       },
-      { property: "og:title", content: "Dividir a Noite Sem Brigar | Guia Prático para Pai e Mãe" },
+      { property: "og:title", content: "Guia Prático para Pais | Dividir a Noite Sem Brigar" },
       {
         property: "og:description",
         content:
-          "Pare de decidir quem levanta às 3h da manhã. Um combinado justo, feito antes do cansaço bater.",
+          "Pare de decidir quem levanta às 3h da manhã. Combinado pronto, checklist e frases prontas por R$ 18,97.",
       },
       { property: "og:type", content: "product" },
-      { property: "og:url", content: "/" },
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),
@@ -56,412 +58,330 @@ function Cta({
       href={CHECKOUT}
       onClick={(e) => handleCheckoutClick(e, CHECKOUT)}
       className={`group inline-flex items-center justify-center gap-2.5 rounded-xl bg-accent px-8 py-4 text-base font-bold tracking-tight text-accent-foreground shadow-[var(--shadow-lift)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-clay focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${className}`}
-
     >
       {children}
-      <IconArrow className="h-4 w-4 stroke-current transition-transform duration-200 group-hover:translate-x-1" />
+      <IconArrow className="h-4 w-4 stroke-current transition-transform duration-200 group-hover:translate-x-0.5" />
     </a>
   );
 }
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex items-center gap-3">
-      <span className="h-px w-8 bg-accent" />
-      <span className="text-xs font-semibold uppercase tracking-[0.24em] text-accent">
-        {children}
-      </span>
-    </div>
+    <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent">{children}</p>
   );
 }
 
-const PAINS = [
+const BENEFITS = [
   {
-    icon: IconClock,
-    title: "São 3h07 e os dois estão acordados",
-    text: "O bebê chora e ninguém se mexe. Vocês fingem dormir, cada um contando quantas vezes levantou ontem. Quem cede primeiro acorda com raiva — e leva essa raiva para o café da manhã.",
+    icon: <IconClock />,
+    title: "Rápido de aplicar",
+    text: "Leitura direta e uma conversa de 20 minutos. Não é livro de 300 páginas para ler numa fase em que ninguém tem tempo nem cabeça.",
   },
   {
-    icon: IconScale,
-    title: "A contabilidade invisível do cansaço",
-    text: "\"Eu levantei três vezes.\" \"Mas eu trabalho amanhã.\" A conversa nunca é sobre o bebê: é sobre quem está mais exausto. E nessa conta, ninguém ganha.",
+    icon: <IconBed />,
+    title: "Feito para casais reais",
+    text: "Parte de quem trabalha fora, de quem está em licença, de quem amamenta e de quem acorda às 6h. Nada de rotina ideal que não cabe na sua casa.",
   },
   {
-    icon: IconBottle,
-    title: "A mãe vira plantonista por padrão",
-    text: "Como ela amamenta, sobrou tudo para ela: mamada, troca, ninar, voltar a dormir. O pai quer ajudar, não sabe onde entrar, espera ser chamado — e o silêncio dele parece descaso.",
+    icon: <IconCheck className="h-6 w-6 stroke-current" />,
+    title: "Checklist pronto",
+    text: "Cada situação da madrugada já vem listada com o responsável definido. Você só preenche e cola na parede do quarto.",
   },
   {
-    icon: IconBed,
-    title: "O ressentimento que sobra de manhã",
-    text: "Vocês não brigam por causa da fralda. Brigam porque cada um se sente sozinho dentro da mesma casa, às 4h da manhã, sem ninguém para dividir o peso.",
+    icon: <IconDoc />,
+    title: "Frases prontas para a conversa",
+    text: "O que falar para propor a divisão sem soar cobrança, e o que responder quando o outro reage na defensiva. Palavra por palavra.",
+  },
+  {
+    icon: <IconScale />,
+    title: "Divisão justa, não 50/50 no relógio",
+    text: "Um critério simples de carga real para que os dois sintam que o acordo é honesto — e por isso ele se sustenta.",
+  },
+  {
+    icon: <IconBottle />,
+    title: "Sem enrolação teórica",
+    text: "Zero teoria de sono infantil, zero citação acadêmica. É um material de aplicação, feito para virar acordo hoje à noite.",
   },
 ];
 
-const FAILED = [
-  "Revezar \"um dia cada\" — desaba na primeira noite em que um dos dois está doente.",
-  "Combinar no meio da madrugada — decisão tomada por quem tem menos energia para discutir.",
-  "Dividir 50/50 exato — ignora amamentação, trabalho e recuperação do parto; vira competição.",
-  "Esperar que o outro perceba sozinho — ninguém percebe nada com quatro horas de sono.",
+const BONUSES = [
+  {
+    n: "Bônus 1",
+    title: "Planner semanal de divisão de tarefas",
+    text: "Uma folha por semana para distribuir noites, banhos, mamadas e compras. Imprime, cola na geladeira e acaba a discussão de quem fez mais.",
+  },
+  {
+    n: "Bônus 2",
+    title: 'Cartão "SOS Madrugada"',
+    text: "Um cartão de bolso com ações rápidas para o pior momento: bebê inconsolável, mãe no limite, ninguém raciocinando. Passos curtos, na ordem certa.",
+  },
+  {
+    n: "Bônus 3",
+    title: "Diário de gratidão do casal + autocuidado expresso",
+    text: "Duas linhas por dia para reconhecer o que o outro fez, mais rotinas de 5 minutos de autocuidado que cabem em quem dorme pouco.",
+  },
 ];
 
-const DELIVER = [
-  {
-    icon: IconDoc,
-    tag: "Guia principal — PDF",
-    title: "O Combinado da Noite",
-    items: [
-      "O quadro de carga real: descubra em 10 minutos quem está de fato carregando a noite (quase sempre a resposta surpreende os dois).",
-      "Os 4 modelos de divisão prontos — inclusive um específico para amamentação exclusiva — para você escolher e preencher, sem inventar nada.",
-      "O roteiro da conversa de 20 minutos, com as frases exatas para propor a divisão sem soar como cobrança.",
-      "O plano de exceção: o que fazer quando o bebê regride, um dos dois adoece ou a noite simplesmente desanda.",
-    ],
-  },
-  {
-    icon: IconMoonSplit,
-    tag: "Bônus — PDF",
-    title: "Kit Madrugada Sem Discussão",
-    items: [
-      "Quadro de turnos para imprimir e colar na geladeira: acaba o \"eu achei que era sua vez\".",
-      "10 frases de resgate para usar quando o cansaço já virou briga — e como voltar atrás sem humilhação.",
-      "Checklist do berço preparado, para que o turno de quem levanta dure minutos, não uma hora.",
-    ],
-  },
+const SLIDES = [
+  { src: mockGuia, alt: "Página interna do guia em PDF aberta sobre a cama", caption: "Páginas do guia principal, direto ao ponto" },
+  { src: mockChecklist, alt: "Checklist impresso com caixas de marcação e caneta", caption: "Checklist da madrugada, pronto para preencher" },
+  { src: mockPlanner, alt: "Planner semanal impresso preso na porta da geladeira", caption: "Planner semanal de divisão de tarefas" },
+  { src: mockSos, alt: "Cartão SOS Madrugada segurado ao lado do berço", caption: 'Cartão "SOS Madrugada" de bolso' },
+  { src: mockCelular, alt: "Celular exibindo o guia em PDF sobre a cama", caption: "Tudo abre no celular, sem aplicativo" },
 ];
 
 const TESTIMONIALS = [
   {
-    text: "A gente brigava toda madrugada e achava que era falta de amor. Era falta de combinado. Preenchemos o quadro num domingo à tarde e na segunda-feira eu dormi quatro horas seguidas pela primeira vez em dois meses.",
-    name: "Marina e Tiago",
-    meta: "pais da Alice, 2 meses",
+    name: "Marina e Rafael",
+    role: "pais da Alice, 2 meses",
+    text: "A gente brigava quase toda noite decidindo quem levantava. Preenchemos o quadro num domingo à tarde e na mesma semana as discussões pararam. Não é que o bebê passou a dormir — é que a gente parou de negociar às 3h da manhã.",
   },
   {
-    text: "Eu queria ajudar e sempre entrava na hora errada, o que só irritava ela. O guia me mostrou exatamente onde eu era útil. Hoje a madrugada tem dono definido e a gente não discute mais sobre isso.",
-    name: "Rafael",
-    meta: "pai do Bento, 11 semanas",
+    name: "Camila e Diego",
+    role: "pais do Théo, 5 semanas",
+    text: "Eu amamento exclusivo e achava que não tinha o que dividir. O guia mostrou tudo que dava para passar para ele: troca, arroto, colocar no berço, a primeira hora da manhã. Ganhei quase duas horas de sono seguido por noite.",
   },
   {
-    text: "Amamento exclusivo e achava que não tinha divisão possível. Tinha. Ele assume tudo antes e depois da mamada e a primeira hora da manhã é minha para dormir. Mudou o clima da casa inteira.",
-    name: "Camila",
-    meta: "mãe do Théo, 7 semanas",
+    name: "Juliana e Pedro",
+    role: "pais de dois, 3 anos e 3 meses",
+    text: "Com dois filhos virou caos. As frases prontas foram o que mais ajudou: consegui propor a divisão sem que virasse briga de quem está mais cansado. Hoje a noite tem dono definido antes de começar.",
   },
 ];
 
 const STEPS = [
-  { n: "01", title: "Identifique o padrão", text: "Veja em qual das 4 armadilhas da madrugada vocês caíram." },
-  { n: "02", title: "Aplique o combinado", text: "20 minutos de conversa guiada, acordados, com o quadro pronto." },
-  { n: "03", title: "Durma em paz", text: "Cada um sabe seu turno. Ninguém precisa negociar às 3h da manhã." },
+  { n: "01", title: "Você compra", text: "Pagamento único de R$ 18,97 no checkout seguro." },
+  { n: "02", title: "Recebe no e-mail", text: "O guia e os três bônus chegam na hora, logo após a aprovação." },
+  { n: "03", title: "Aplica em 20 minutos", text: "Vocês respondem as perguntas guiadas e fecham o combinado da noite." },
 ];
 
 function Landing() {
   return (
-    <main className="overflow-x-hidden">
-      {/* HERO */}
-      <section className="relative bg-night text-night-foreground">
-        <div className="container-page grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 lg:py-28">
+    <div className="min-h-screen bg-background">
+      {/* 1 — Hero */}
+      <header className="relative overflow-hidden border-b border-border">
+        <div className="container-page grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           <div className="animate-rise">
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-night-foreground/20 px-4 py-1.5">
-              <IconMoonSplit className="h-4 w-4 stroke-current text-accent" />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-night-foreground/80">
-                Guia digital para casais com recém-nascido
-              </span>
-            </div>
-
-            <h1 className="mt-7 text-[2.1rem] leading-[1.08] sm:text-5xl lg:text-[3.4rem]">
-              Parem de decidir às 3h da manhã{" "}
-              <span className="text-accent">quem levanta pra cuidar do bebê.</span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+              <IconMoonSplit className="h-4 w-4 stroke-current" />
+              Paternidade Facilitada
+            </span>
+            <h1 className="mt-6 text-4xl leading-[1.06] text-foreground sm:text-5xl lg:text-[3.6rem]">
+              Parem de brigar de madrugada por causa da rotina do bebê.
             </h1>
-
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-night-foreground/75">
-              Um combinado justo, feito acordados, que considera a rotina de trabalho, a
-              amamentação e as necessidades do bebê. Vocês continuam exaustos por um tempo — mas
-              param de brigar por causa disso.
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
+              Um guia prático que define, antes da noite começar, quem cuida de cada situação da
+              madrugada. Combinado feito acordado, com clareza — não decidido no cansaço, às 3h da
+              manhã.
             </p>
-
             <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-              <Cta>Pagar agora — R$ 18,97</Cta>
-              <p className="text-sm text-night-foreground/60">
-                Acesso imediato na área de membros
-                <br className="hidden sm:block" /> Garantia de 7 dias
+              <a
+                href="#oferta"
+                className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-accent px-8 py-4 text-base font-bold tracking-tight text-accent-foreground shadow-[var(--shadow-lift)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-clay"
+              >
+                Quero meu guia agora
+                <IconArrow className="h-4 w-4 stroke-current transition-transform duration-200 group-hover:translate-x-0.5" />
+              </a>
+              <p className="text-sm text-muted-foreground">
+                PDF entregue no e-mail na hora · R$ 18,97 pagamento único
               </p>
-            </div>
-
-            <div className="mt-10 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-5 border-t border-night-foreground/15 pt-7 sm:flex sm:gap-8">
-              <div className="min-w-0">
-                <p className="font-display text-2xl text-night-foreground">{COUPLES}</p>
-                <p className="text-xs uppercase tracking-[0.16em] text-night-foreground/55">
-                  casais já usaram o método
-                </p>
-              </div>
-              <IconSeal className="h-12 w-12 shrink-0 stroke-current text-accent" />
             </div>
           </div>
 
           <div className="relative">
-            <div className="absolute -inset-3 rounded-[1.75rem] border border-night-foreground/12" aria-hidden="true" />
-            <img
-              src={heroImg}
-              width={1280}
-              height={1280}
-              alt="Casal acordado durante a madrugada acalmando o bebê recém-nascido no quarto"
-              className="relative aspect-[4/3] w-full rounded-2xl object-cover lg:aspect-square"
-            />
+            <div className="overflow-hidden rounded-3xl border border-border shadow-[var(--shadow-lift)]">
+              <img
+                src={heroImg}
+                alt="Casal cansado com bebê recém-nascido no colo durante a madrugada"
+                width={1024}
+                height={1024}
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <div className="absolute -bottom-5 left-5 flex items-center gap-3 rounded-2xl border border-border bg-card px-5 py-4 shadow-[var(--shadow-soft)]">
+              <IconSeal className="h-9 w-9 stroke-accent" />
+              <p className="text-sm font-semibold leading-tight text-foreground">
+                Método do combinado
+                <span className="block text-xs font-normal text-muted-foreground">
+                  feito antes do cansaço bater
+                </span>
+              </p>
+            </div>
           </div>
         </div>
-      </section>
+      </header>
 
-      {/* PROGRESS STEPS */}
-      <section className="border-b border-border bg-sand/50">
-        <div className="container-page py-14 sm:py-16">
-          <SectionLabel>Do caos ao combinado</SectionLabel>
-          <div className="mt-9 grid gap-7 sm:grid-cols-3">
-            {STEPS.map((s, i) => (
-              <div key={s.n} className="relative">
-                <div className="flex items-center gap-3">
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary font-display text-sm text-primary-foreground">
-                    {i + 1}
-                  </span>
-                  <span className="h-px flex-1 bg-border" />
-                </div>
-                <h3 className="mt-4 text-lg">{s.title}</h3>
+      {/* 2 — O que é e como recebe */}
+      <section className="border-b border-border bg-card">
+        <div className="container-page py-16 sm:py-24">
+          <div className="max-w-3xl">
+            <SectionLabel>O que você recebe</SectionLabel>
+            <h2 className="mt-4 text-3xl leading-tight sm:text-4xl">
+              Um guia prático em PDF, entregue por e-mail no momento da compra.
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+              Dentro dele está o passo a passo para o casal combinar, com nome e responsável, quem
+              cuida de cada situação da madrugada: a mamada das 2h, a troca fora de hora, o bebê que
+              não volta a dormir, a cólica, o irmão que acorda junto e a primeira hora da manhã.
+              Tudo definido enquanto vocês ainda conseguem pensar — não no meio da exaustão.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-5 sm:grid-cols-3">
+            {STEPS.map((s) => (
+              <div key={s.n} className="rounded-2xl border border-border bg-background p-7">
+                <span className="font-display text-3xl font-semibold text-accent">{s.n}</span>
+                <h3 className="mt-3 text-lg text-foreground">{s.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{s.text}</p>
               </div>
             ))}
           </div>
-          <div className="mt-9 h-1.5 w-full overflow-hidden rounded-full bg-secondary">
-            <div className="h-full w-2/3 rounded-full bg-accent" />
-          </div>
         </div>
       </section>
 
-      {/* DOR */}
-      <section className="container-page py-20 sm:py-24">
-        <div className="max-w-2xl">
-          <SectionLabel>Reconhece alguma dessas noites?</SectionLabel>
-          <h2 className="mt-5 text-3xl leading-tight sm:text-4xl">
-            O problema nunca foi o bebê acordar. Foi vocês dois não saberem de quem era a vez.
-          </h2>
-        </div>
-
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {PAINS.map((p) => (
-            <article
-              key={p.title}
-              className="rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-soft)] transition-shadow duration-300 hover:shadow-[var(--shadow-lift)]"
-            >
-              <span className="grid h-11 w-11 place-items-center rounded-xl bg-secondary text-primary">
-                <p.icon className="h-6 w-6 stroke-current" />
-              </span>
-              <h3 className="mt-5 text-xl leading-snug">{p.title}</h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{p.text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {/* MECANISMO */}
-      <section className="bg-primary text-primary-foreground">
-        <div className="container-page grid gap-12 py-20 sm:py-24 lg:grid-cols-2 lg:items-center lg:gap-16">
-          <div>
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-accent" />
-              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-accent">
-                A virada de chave
-              </span>
-            </div>
-            <h2 className="mt-5 text-3xl leading-tight sm:text-4xl">
-              Dividir a noite 50/50 exato é a causa da briga, não a solução.
+      {/* 3 — Por que escolher */}
+      <section className="border-b border-border">
+        <div className="container-page py-16 sm:py-24">
+          <div className="max-w-3xl">
+            <SectionLabel>Por que escolher este material</SectionLabel>
+            <h2 className="mt-4 text-3xl leading-tight sm:text-4xl">
+              Feito para ser aplicado hoje à noite, não para ser estudado.
             </h2>
-            <div className="mt-6 space-y-5 text-[15px] leading-relaxed text-primary-foreground/80 sm:text-base">
-              <p>
-                Meio a meio parece justo no papel. Na prática, ele acorda 6h para trabalhar, ela
-                está se recuperando de um parto e amamentando de duas em duas horas. Metade
-                idêntica para corpos e rotinas diferentes vira competição: cada um provando que
-                sofreu mais.
-              </p>
-              <p>
-                <strong className="text-primary-foreground">
-                  O que funciona é divisão justa, não igual
-                </strong>{" "}
-                — turnos proporcionais à carga real de cada um, decididos com os dois acordados,
-                antes da noite começar. Um combinado feito às 15h vale mais do que dez discussões
-                às 3h.
-              </p>
-            </div>
-
-            <div className="mt-9 rounded-2xl border border-primary-foreground/15 p-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground/60">
-                O que os casais tentam antes — e por que falha
-              </p>
-              <ul className="mt-4 space-y-3">
-                {FAILED.map((f) => (
-                  <li key={f} className="flex gap-3 text-[15px] leading-relaxed text-primary-foreground/80">
-                    <svg viewBox="0 0 24 24" fill="none" strokeWidth={1.8} className="mt-1 h-4 w-4 shrink-0 stroke-current text-accent" aria-hidden="true">
-                      <path d="m6 6 12 12M18 6 6 18" strokeLinecap="round" />
-                    </svg>
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
 
-          <div className="relative">
-            <img
-              src={planImg}
-              width={1024}
-              height={768}
-              loading="lazy"
-              alt="Quadro de turnos da madrugada escrito à mão sobre a mesa ao lado de duas canecas"
-              className="w-full rounded-2xl object-cover shadow-[var(--shadow-lift)]"
-            />
-            <div className="mt-5 rounded-2xl bg-primary-foreground/8 p-5 text-sm leading-relaxed text-primary-foreground/75">
-              O combinado cabe em uma folha. É essa folha — e não a boa vontade das 3h da manhã —
-              que segura a paz da casa.
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* QUIZ */}
-      <section className="container-page py-20 sm:py-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <SectionLabel>
-            <span className="sr-only">Teste</span>Isso é pra vocês?
-          </SectionLabel>
-          <h2 className="mt-5 text-3xl leading-tight sm:text-4xl">
-            Responda três perguntas e descubra em que estágio a noite de vocês está
-          </h2>
-        </div>
-        <div className="mx-auto mt-10 max-w-2xl">
-          <Quiz checkoutUrl={CHECKOUT} />
-        </div>
-      </section>
-
-      {/* PRA QUEM É */}
-      <section className="border-y border-border bg-sand/50">
-        <div className="container-page grid gap-10 py-20 sm:py-24 md:grid-cols-2">
-          <div className="rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]">
-            <h3 className="text-2xl">É pra vocês se</h3>
-            <ul className="mt-6 space-y-4">
-              {[
-                "O bebê tem entre 0 e 12 meses e as noites ainda são picadas.",
-                "Vocês já discutiram (ou ficaram em silêncio irritados) por causa de quem levanta.",
-                "Um dos dois trabalha fora e o outro sente que carrega a madrugada sozinho.",
-                "Vocês amamentam no peito e não sabem como o pai pode dividir de verdade.",
-                "Querem uma solução prática para aplicar hoje, não uma teoria sobre parentalidade.",
-              ].map((t) => (
-                <li key={t} className="flex gap-3 text-[15px] leading-relaxed">
-                  <IconCheck className="mt-0.5 h-5 w-5 shrink-0 stroke-current text-accent" />
-                  <span>{t}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="rounded-2xl border border-dashed border-border p-8">
-            <h3 className="text-2xl">Não é pra vocês se</h3>
-            <ul className="mt-6 space-y-4 text-muted-foreground">
-              {[
-                "Procuram um método de treinamento de sono para o bebê — este guia trata do casal.",
-                "Esperam que o outro mude sozinho, sem nenhuma conversa.",
-                "Querem um manual médico ou orientação clínica sobre o sono infantil.",
-                "Não têm 20 minutos para sentar juntos uma única vez.",
-              ].map((t) => (
-                <li key={t} className="flex gap-3 text-[15px] leading-relaxed">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground" />
-                  <span>{t}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* ENTREGÁVEL */}
-      <section className="container-page py-20 sm:py-24">
-        <div className="max-w-2xl">
-          <SectionLabel>O que você recebe</SectionLabel>
-          <h2 className="mt-5 text-3xl leading-tight sm:text-4xl">
-            Dois PDFs, direto ao ponto, para ler no celular ainda hoje
-          </h2>
-        </div>
-
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {DELIVER.map((d) => (
-            <article
-              key={d.title}
-              className="rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]"
-            >
-              <div className="flex items-center gap-4">
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
-                  <d.icon className="h-6 w-6 stroke-current" />
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {BENEFITS.map((b) => (
+              <div
+                key={b.title}
+                className="rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-soft)]"
+              >
+                <span className="grid h-12 w-12 place-items-center rounded-xl bg-secondary text-primary">
+                  {b.icon}
                 </span>
-                <div className="min-w-0">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">
-                    {d.tag}
-                  </p>
-                  <h3 className="truncate text-xl">{d.title}</h3>
-                </div>
+                <h3 className="mt-5 text-lg text-foreground">{b.title}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{b.text}</p>
               </div>
-              <ul className="mt-7 space-y-4">
-                {d.items.map((it) => (
-                  <li key={it} className="flex gap-3 text-[15px] leading-relaxed text-muted-foreground">
-                    <IconCheck className="mt-0.5 h-5 w-5 shrink-0 stroke-current text-accent" />
-                    <span>{it}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-
-        <div className="mt-8 grid gap-6 rounded-2xl border border-border bg-secondary/50 p-8 sm:grid-cols-3">
-          {[
-            { t: "Entrega imediata", d: "Assim que o pagamento é aprovado, o acesso chega no seu e-mail." },
-            { t: "Área de membros", d: "Leia no celular ou baixe os dois PDFs. Acesso vitalício." },
-            { t: "Leitura de 40 minutos", d: "Sem enrolação: é material para aplicar, não para estudar." },
-          ].map((b) => (
-            <div key={b.t}>
-              <p className="font-display text-lg">{b.t}</p>
-              <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{b.d}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* PROVA SOCIAL */}
-      <section className="bg-night text-night-foreground">
-        <div className="container-page py-20 sm:py-24">
-          <div className="max-w-2xl">
-            <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-accent" />
-              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-accent">
-                Quem já aplicou
-              </span>
-            </div>
-            <h2 className="mt-5 text-3xl leading-tight sm:text-4xl">
-              A mudança acontece na primeira noite depois da conversa
+      {/* 4 — Bônus */}
+      <section className="border-b border-border bg-night text-night-foreground">
+        <div className="container-page py-16 sm:py-24">
+          <div className="max-w-3xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sand">
+              Acompanham a oferta
+            </p>
+            <h2 className="mt-4 text-3xl leading-tight text-night-foreground sm:text-4xl">
+              Três bônus que continuam funcionando depois do combinado fechado.
             </h2>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="mt-12 grid gap-6 lg:grid-cols-3">
+            {BONUSES.map((b) => (
+              <div
+                key={b.n}
+                className="rounded-2xl border border-night-foreground/15 bg-night-foreground/[0.06] p-7"
+              >
+                <span className="inline-flex rounded-full border border-night-foreground/25 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-sand">
+                  {b.n}
+                </span>
+                <h3 className="mt-5 text-xl text-night-foreground">{b.title}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-night-foreground/75">{b.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5 — Oferta */}
+      <section id="oferta" className="scroll-mt-8 border-b border-border">
+        <div className="container-page py-16 sm:py-24">
+          <div className="mx-auto max-w-3xl rounded-3xl border border-border bg-card p-8 text-center shadow-[var(--shadow-lift)] sm:p-12">
+            <SectionLabel>Oferta limitada</SectionLabel>
+            <h2 className="mt-4 text-3xl leading-tight sm:text-4xl">
+              Guia completo + 3 bônus por um valor único.
+            </h2>
+
+            <div className="mt-8 flex justify-center">
+              <Timer />
+            </div>
+
+            <div className="mt-8 flex flex-col items-center">
+              <span className="text-sm text-muted-foreground line-through">De R$ 67,00</span>
+              <span className="font-display text-6xl font-semibold leading-none text-foreground">
+                R$ 18,97
+              </span>
+              <span className="mt-3 rounded-full bg-secondary px-4 py-1.5 text-sm font-semibold text-secondary-foreground">
+                Pagamento único · sem mensalidade
+              </span>
+            </div>
+
+            <ul className="mx-auto mt-9 grid max-w-md gap-3 text-left">
+              {[
+                "Guia prático em PDF (material principal)",
+                "Planner semanal de divisão de tarefas",
+                'Cartão "SOS Madrugada"',
+                "Diário de gratidão do casal + autocuidado expresso",
+                "Entrega imediata no e-mail, acesso vitalício",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-accent/12 text-accent">
+                    <IconCheck className="h-4 w-4 stroke-current" />
+                  </span>
+                  <span className="text-[15px] leading-relaxed text-foreground">{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <Cta className="mt-9 w-full sm:w-auto">Pagar agora</Cta>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Compra segura · 7 dias de garantia incondicional
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 6 — Carrossel de exemplos */}
+      <section className="border-b border-border bg-card">
+        <div className="container-page py-16 sm:py-24">
+          <div className="max-w-3xl">
+            <SectionLabel>Por dentro do material</SectionLabel>
+            <h2 className="mt-4 text-3xl leading-tight sm:text-4xl">
+              Exemplos do que chega no seu e-mail.
+            </h2>
+          </div>
+          <div className="mt-10">
+            <Carousel slides={SLIDES} />
+          </div>
+        </div>
+      </section>
+
+      {/* 7 — Depoimentos */}
+      <section className="border-b border-border">
+        <div className="container-page py-16 sm:py-24">
+          <div className="max-w-3xl">
+            <SectionLabel>Quem já aplicou</SectionLabel>
+            <h2 className="mt-4 text-3xl leading-tight sm:text-4xl">
+              Casais que trocaram a briga da madrugada por um combinado.
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {TESTIMONIALS.map((t) => (
               <figure
                 key={t.name}
-                className="flex flex-col rounded-2xl border border-night-foreground/12 bg-night-foreground/5 p-7"
+                className="flex flex-col rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-soft)]"
               >
-                <svg viewBox="0 0 24 24" className="h-7 w-7 fill-accent" aria-hidden="true">
-                  <path d="M9.5 5C6.5 6.6 5 9 5 12v7h6.5v-7H8.6c0-2 .8-3.5 2.4-4.6L9.5 5Zm9 0C15.5 6.6 14 9 14 12v7h6.5v-7h-2.9c0-2 .8-3.5 2.4-4.6L18.5 5Z" />
+                <svg viewBox="0 0 24 24" className="h-7 w-7 fill-accent/25" aria-hidden="true">
+                  <path d="M9.5 5C6.5 6.6 5 9.2 5 12.8V19h6.2v-6.2H8.4c0-2.2.9-3.9 2.7-5.1L9.5 5Zm9 0c-3 1.6-4.5 4.2-4.5 7.8V19h6.2v-6.2h-2.8c0-2.2.9-3.9 2.7-5.1L18.5 5Z" />
                 </svg>
-                <blockquote className="mt-5 grow text-[15px] leading-relaxed text-night-foreground/80">
+                <blockquote className="mt-4 flex-1 text-[15px] leading-relaxed text-muted-foreground">
                   {t.text}
                 </blockquote>
-                <figcaption className="mt-6 border-t border-night-foreground/12 pt-4">
-                  <p className="font-display text-base">{t.name}</p>
-                  <p className="text-xs uppercase tracking-[0.14em] text-night-foreground/50">
-                    {t.meta}
-                  </p>
+                <figcaption className="mt-6 border-t border-border pt-5">
+                  <span className="block text-sm font-semibold text-foreground">{t.name}</span>
+                  <span className="block text-sm text-muted-foreground">{t.role}</span>
                 </figcaption>
               </figure>
             ))}
@@ -469,80 +389,61 @@ function Landing() {
         </div>
       </section>
 
-      {/* GARANTIA */}
-      <section className="container-page py-20 sm:py-24">
-        <div className="grid items-center gap-10 rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-soft)] sm:p-12 lg:grid-cols-[auto_minmax(0,1fr)]">
-          <span className="grid h-24 w-24 shrink-0 place-items-center rounded-full bg-accent/10 text-accent">
-            <IconShield className="h-11 w-11 stroke-current" />
-          </span>
-          <div className="min-w-0">
-            <h2 className="text-3xl leading-tight">Garantia incondicional de 7 dias</h2>
-            <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted-foreground sm:text-base">
-              Leia os dois PDFs, faça a conversa de 20 minutos e teste o combinado por uma semana.
-              Se a madrugada de vocês continuar exatamente igual, responda o e-mail de acesso e
-              devolvemos os R$ 18,97 integralmente. Sem justificativa, sem formulário, sem
-              constrangimento. O risco é todo nosso.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="border-y border-border bg-sand/50">
-        <div className="container-page py-20 sm:py-24">
-          <div className="max-w-2xl">
-            <SectionLabel>Dúvidas frequentes</SectionLabel>
-            <h2 className="mt-5 text-3xl leading-tight sm:text-4xl">
-              As perguntas que todo casal exausto faz antes de comprar
-            </h2>
-          </div>
-          <div className="mt-10">
-            <Faq />
-          </div>
-        </div>
-      </section>
-
-      {/* CTA FINAL */}
-      <section id="checkout-anchor" className="bg-primary text-primary-foreground">
-        <div className="container-page py-20 text-center sm:py-28">
-          <div className="mx-auto max-w-2xl">
-            <IconSeal className="mx-auto h-14 w-14 stroke-current text-accent" />
-            <h2 className="mt-7 text-3xl leading-tight sm:text-[2.6rem]">
-              Vocês vão passar por essa fase de qualquer jeito. A escolha é passar juntos ou passar
-              brigando.
-            </h2>
-            <p className="mt-6 text-[15px] leading-relaxed text-primary-foreground/80 sm:text-lg">
-              Hoje o guia completo sai por <strong className="text-primary-foreground">R$ 18,97</strong> — menos
-              do que uma fralda extra por semana. Esse valor de lançamento vale enquanto durar a
-              primeira turma de casais; depois ele sobe.
-            </p>
-
-            <div className="mt-10 flex flex-col items-center gap-5">
-              <Cta className="w-full sm:w-auto">Pagar agora</Cta>
-              <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs uppercase tracking-[0.14em] text-primary-foreground/55">
-                <span>Pagamento seguro</span>
-                <span className="hidden h-3 w-px bg-primary-foreground/20 sm:block" />
-                <span>Acesso imediato</span>
-                <span className="hidden h-3 w-px bg-primary-foreground/20 sm:block" />
-                <span>7 dias de garantia</span>
-              </div>
+      {/* 8 — Garantia */}
+      <section className="border-b border-border bg-secondary/40">
+        <div className="container-page py-16 sm:py-24">
+          <div className="mx-auto flex max-w-3xl flex-col items-start gap-7 rounded-3xl border border-border bg-card p-8 sm:flex-row sm:items-center sm:p-10">
+            <span className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-accent/10 text-accent">
+              <IconShield className="h-10 w-10 stroke-current" />
+            </span>
+            <div>
+              <h2 className="text-2xl leading-tight sm:text-3xl">
+                Garantia incondicional de 7 dias
+              </h2>
+              <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
+                Leia, aplique e mostre para o seu parceiro ou parceira. Se não gostar, por qualquer
+                motivo, é só responder o e-mail de acesso dentro de 7 dias que devolvemos 100% do
+                valor. Sem justificativa, sem formulário e sem perguntas.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="container-page py-12">
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 border-t border-border pt-8 sm:flex sm:justify-between">
-          <div className="flex min-w-0 items-center gap-3">
-            <IconMoonSplit className="h-6 w-6 shrink-0 stroke-current text-primary" />
-            <p className="truncate text-sm font-semibold">Guia Dividir a Noite Sem Brigar</p>
+      {/* 9 — FAQ */}
+      <section className="border-b border-border">
+        <div className="container-page py-16 sm:py-24">
+          <div className="max-w-3xl">
+            <SectionLabel>Perguntas frequentes</SectionLabel>
+            <h2 className="mt-4 text-3xl leading-tight sm:text-4xl">
+              O que os casais perguntam antes de comprar.
+            </h2>
           </div>
-          <p className="text-xs leading-relaxed text-muted-foreground sm:max-w-md sm:text-right">
-            Conteúdo educativo para organização da rotina do casal. Não substitui orientação
-            médica ou pediátrica.
+          <div className="mt-10">
+            <Faq />
+          </div>
+
+          <div className="mt-12 flex flex-col items-center gap-4 text-center">
+            <Cta>Pagar agora</Cta>
+            <p className="text-sm text-muted-foreground">
+              R$ 18,97 · pagamento único · entrega imediata por e-mail
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 10 — Rodapé */}
+      <footer className="bg-night text-night-foreground">
+        <div className="container-page flex flex-col items-center gap-3 py-10 text-center">
+          <span className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-sand">
+            <IconMoonSplit className="h-4 w-4 stroke-current" />
+            Paternidade Facilitada
+          </span>
+          <p className="text-sm text-night-foreground/70">
+            © 2026 Paternidade Facilitada. Todos os direitos reservados.
           </p>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }

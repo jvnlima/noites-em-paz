@@ -2,28 +2,32 @@ import { useState } from "react";
 
 const FAQS = [
   {
-    q: "Funciona no meu caso? Eu amamento no peito e ele não pode substituir.",
-    a: "Funciona — e foi justamente para esse caso que o método existe. A divisão não é da mamada, é da noite inteira: quem troca, quem faz o bebê arrotar, quem volta a fazer dormir, quem assume a primeira hora da manhã para a mãe emendar sono. Existe um capítulo específico para casais em amamentação exclusiva.",
+    q: "Como eu recebo o material depois da compra?",
+    a: "Na hora. Assim que o pagamento é aprovado, o guia em PDF e os três bônus chegam no e-mail que você usar no checkout. É só abrir e ler no celular, ou baixar e imprimir. O acesso é vitalício.",
   },
   {
-    q: "E se um dos dois trabalha fora e precisa acordar cedo?",
-    a: "O guia parte de uma tabela de carga real (trabalho, deslocamento, licença, recuperação do parto) e transforma isso em blocos de noite proporcionais. Ninguém é penalizado por trabalhar, e ninguém é obrigado a virar a noite sozinho porque está de licença.",
+    q: "Funciona pra quem já briga muito por causa da madrugada?",
+    a: "Foi escrito exatamente para esse casal. O guia tira a decisão do meio da noite e coloca num combinado feito acordado, com frases prontas para conduzir a conversa sem cobrança e sem lista de mágoas.",
   },
   {
-    q: "É complicado de aplicar?",
-    a: "São 20 minutos de conversa guiada, com as perguntas prontas e um quadro para preencher. Você não precisa criar nada do zero: lê, responde, cola na geladeira. A maior parte dos casais aplica na mesma noite.",
+    q: "Funciona se eu amamento no peito e ele não pode substituir?",
+    a: "Sim. A divisão não é da mamada, é da noite inteira: quem troca, quem faz arrotar, quem devolve o bebê ao berço, quem assume a primeira hora da manhã para a mãe emendar sono. Existe um capítulo só para amamentação exclusiva.",
   },
   {
-    q: "Meu parceiro não vai querer ler nada.",
-    a: "Ele não precisa. O guia foi escrito para ser aplicado por um e apresentado ao outro em uma página só — a página do combinado. É o único documento que os dois precisam olhar.",
+    q: "Funciona com mais de um filho em casa?",
+    a: "Funciona. O passo a passo inclui o cenário com irmão mais velho: quem fica responsável pelo despertar do maior, como evitar que os dois adultos acordem juntos e como redistribuir a noite quando alguém adoece.",
   },
   {
-    q: "Como recebo o material?",
-    a: "Logo após a aprovação do pagamento você recebe o acesso à área de membros por e-mail. Os dois PDFs ficam disponíveis para leitura no celular e para download imediato. O acesso é vitalício.",
+    q: "Preciso instalar algum aplicativo?",
+    a: "Não. Nada de app, nada de login complicado, nada de mensalidade. São PDFs simples que abrem em qualquer celular ou computador, e o planner pode ser impresso e colado na geladeira.",
   },
   {
-    q: "E se não servir para nós?",
-    a: "Você tem 7 dias para pedir o reembolso integral, sem justificativa e sem formulário longo. Basta responder o e-mail de acesso.",
+    q: "É complicado ou demorado de aplicar?",
+    a: "São cerca de 20 minutos de conversa guiada, com as perguntas prontas e um quadro para preencher. A maior parte dos casais aplica na mesma noite em que recebe.",
+  },
+  {
+    q: "E se não servir pra nós?",
+    a: "Você tem 7 dias de garantia incondicional. Se não gostar, é só responder o e-mail de acesso e devolvemos 100% do valor, sem justificativa e sem formulário longo.",
   },
 ];
 
